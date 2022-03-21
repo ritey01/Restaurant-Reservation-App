@@ -1,4 +1,4 @@
-const idFormat = require("./idFormat");
+const idFormat = require("./restaurantFormat");
 
 const beforeFormat = {
   _id: "616005cae3c8e880c13dc0b9",
@@ -9,7 +9,7 @@ const beforeFormat = {
 };
 
 describe("id formatting", () => {
-  it("should return id not _id", () => {
+  it("should return restaurant id not _id", () => {
     const expectedResult = {
       id: "616005cae3c8e880c13dc0b9",
       name: "Curry Place",

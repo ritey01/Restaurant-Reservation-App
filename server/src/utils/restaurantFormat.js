@@ -1,4 +1,4 @@
-const idFormat = (formatObject) => {
+const restaurantFormat = (formatObject) => {
   return {
     id: formatObject._id,
     name: formatObject.name,
@@ -6,4 +6,4 @@ const idFormat = (formatObject) => {
     image: formatObject.image,
   };
 };
-module.exports = idFormat;
+module.exports = restaurantFormat;
