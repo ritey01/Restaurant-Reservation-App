@@ -16,7 +16,7 @@ const RestaurantList = () => {
         return;
       }
       const restaurantData = await response.json();
-      console.log(restaurantData);
+
       setRestaurant(restaurantData);
       setIsLoading(false);
     };
@@ -52,7 +52,7 @@ const RestaurantList = () => {
                 <p class="restaurantDescript">{restaurant.description}</p>
                 <div>
                   <Link
-                    to={`/restaurant/${restaurant.id}`}
+                    to={`/restaurants/${restaurant.id}`}
                     class="reserveButton"
                   >
                     {" "}
