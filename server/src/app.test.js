@@ -2,6 +2,22 @@ const app = require("./app");
 const request = require("supertest");
 
 describe("App", () => {
+  test("POST /reservations creates a new property", async () => {
+    const expectedStatus = 201;
+    const body = {
+      partySize: 4,
+      date: "2023-11-17T06:30:00.000Z",
+      restaurantName: "Island Grill",
+    };
+    await request(app)
+      .post("/reservations")
+      .send(body)
+      .expect(expectedStatus)
+      .expect((response) => {
+        expect(response.body).toEqual(expect.objectContaining(body));
+        expect(response.body.id.toBeDefined());
+      });
+  });
   test("GET /restaurants returns all restaurants", async () => {
     const expected = [
       {
@@ -52,14 +68,14 @@ describe("App", () => {
         expect(res.body).toEqual(expected);
       });
   });
-  test("GET restaurants/:id 400 status code and message: 'Invalid ID is provided' with an invalid ID", async () => {
-    const expected = { message: "Invalid ID is provided" };
+  // test("GET restaurants/:id 400 status code and message: 'Invalid ID is provided' with an invalid ID", async () => {
+  //   const expected = { message: "Invalid ID is provided" };
 
-    await request(app)
-      .get("/restaurants/crazy")
-      .expect(400)
-      .expect((res) => {
-        expect(res.body).toEqual(expected);
-      });
-  });
+  //   await request(app)
+  //     .get("/restaurants/crazy")
+  //     .expect(400)
+  //     .expect((res) => {
+  //       expect(res.body).toEqual(expected);
+  //     });
+  // });
 });
