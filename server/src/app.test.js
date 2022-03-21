@@ -8,20 +8,14 @@ describe("App", () => {
       partySize: 4,
       date: "2023-11-17T06:30:00.000Z",
       restaurantName: "Island Grill",
+      userId: "614abe145f317b89a2e36883",
     };
     await request(app)
       .post("/reservations")
       .send(body)
       .expect(expectedStatus)
       .expect((response) => {
-        expect(response.body).toEqual(
-          expect.objectContaining({
-            partySize: expect.any(Number),
-            date: expect.any(String),
-            restaurantName: expect.any(String),
-            id: expect.any(String),
-          })
-        );
+        expect(response.body).toEqual(expect.objectContaining(body));
       });
   });
 
