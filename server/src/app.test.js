@@ -14,10 +14,17 @@ describe("App", () => {
       .send(body)
       .expect(expectedStatus)
       .expect((response) => {
-        expect(response.body).toEqual(expect.objectContaining(body));
-        expect(response.body.id.toBeDefined());
+        expect(response.body).toEqual(
+          expect.objectContaining({
+            partySize: expect.any(Number),
+            date: expect.any(String),
+            restaurantName: expect.any(String),
+            id: expect.any(String),
+          })
+        );
       });
   });
+
   test("GET /restaurants returns all restaurants", async () => {
     const expected = [
       {
