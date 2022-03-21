@@ -1,0 +1,11 @@
+.restaurantName {
+  text-align: left;
+}
+
+@media only screen and (min-width: 40rem) {
+  .restaurantWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
