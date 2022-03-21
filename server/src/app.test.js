@@ -33,4 +33,33 @@ describe("App", () => {
         expect(res.body).toEqual(expected);
       });
   });
+  it("Should return 404 status with endpoint /reservation", async () => {
+    await request(app).get("/reservation").expect(404);
+  });
+
+  it("Should return a single restaurant with GET /restaurant:id", async () => {
+    const expected = {
+      id: "616005cae3c8e880c13dc0b9",
+      name: "Curry Place",
+      description:
+        "Bringing you the spirits of India in the form of best authentic grandma's recipe dishes handcrafted with love by our chefs!",
+      image: "https://i.ibb.co/yftcRcF/indian.jpg",
+    };
+    await request(app)
+      .get("/restaurants/616005cae3c8e880c13dc0b9")
+      .expect(200)
+      .expect((res) => {
+        expect(res.body).toEqual(expected);
+      });
+  });
+  test("GET restaurants/:id 400 status code and message: 'Invalid ID is provided' with an invalid ID", async () => {
+    const expected = { message: "Invalid ID is provided" };
+
+    await request(app)
+      .get("/restaurants/crazy")
+      .expect(400)
+      .expect((res) => {
+        expect(res.body).toEqual(expected);
+      });
+  });
 });
