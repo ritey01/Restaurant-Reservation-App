@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reservationSchema = new Schema({
-  partySize: { type: String, required: true },
-  date: { type: String, required: true },
+  partySize: { type: Number, required: true },
+  date: { type: Date, required: true },
   userId: { type: String, required: true },
   restaurantName: { type: String, required: true },
 });
