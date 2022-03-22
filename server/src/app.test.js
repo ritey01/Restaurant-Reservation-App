@@ -8,7 +8,6 @@ describe("App", () => {
       partySize: 4,
       date: "2023-11-17T06:30:00.000Z",
       restaurantName: "Island Grill",
-      userId: "614abe145f317b89a2e36883",
     };
     await request(app)
       .post("/reservations")
