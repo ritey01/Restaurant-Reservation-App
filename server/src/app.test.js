@@ -1,23 +1,53 @@
 const app = require("./app");
 const request = require("supertest");
+const mongoose = require("mongoose");
 
 describe("App", () => {
   test("POST /reservations creates a new property", async () => {
-    const expectedStatus = 201;
     const body = {
       partySize: 4,
       date: "2023-11-17T06:30:00.000Z",
       restaurantName: "Island Grill",
     };
+    let id;
     await request(app)
       .post("/reservations")
       .send(body)
-      .expect(expectedStatus)
-      .expect((response) => {
-        expect(response.body).toEqual(expect.objectContaining(body));
+      .set("Accept", "application/json")
+      .expect(201)
+      .expect((res) => {
+        id = res.body.id;
+        expect(res.body).toEqual(expect.objectContaining(body));
+        expect(id).toBeTruthy();
+        const isValidId = mongoose.Types.ObjectId.isValid(res.body.id);
+        expect(isValidId).toEqual(true);
       });
+
+    // await request(app)
+    //   .get(`/reservations/${id}`)
+    //   .expect(200)
+    //   .expect((res) => {
+    //     const expected = {
+    //       id,
+    //       ...body,
+    //     };
+    //     expect(res.body).toEqual(expected);
+    //   });
   });
 
+  test("POST /reservations returns a 400 when an invalid request body is provided", async () => {
+    const expectedStatus = 400;
+    const body = {};
+
+    await request(app).post("/reservations").send(body).expect(expectedStatus);
+  });
+
+  // test("POST /reservations returns a 401 when a user is not authenticated", async () => {
+  //   const expectedStatus = 401;
+  //   const body = {};
+
+  //   await request(app).post("/reservations").send(body).expect(expectedStatus);
+  // });
   test("GET /restaurants returns all restaurants", async () => {
     const expected = [
       {
@@ -68,14 +98,25 @@ describe("App", () => {
         expect(res.body).toEqual(expected);
       });
   });
-  // test("GET restaurants/:id 400 status code and message: 'Invalid ID is provided' with an invalid ID", async () => {
-  //   const expected = { message: "Invalid ID is provided" };
+  test("GET restaurants/:id 400 status code and message: 'Invalid ID is provided' with an invalid ID", async () => {
+    const expected = { error: "invalid id is provided" };
 
-  //   await request(app)
-  //     .get("/restaurants/crazy")
-  //     .expect(400)
-  //     .expect((res) => {
-  //       expect(res.body).toEqual(expected);
-  //     });
-  // });
+    await request(app)
+      .get("/restaurants/crazy")
+      .expect(400)
+      .expect((res) => {
+        expect(res.body).toEqual(expected);
+      });
+  });
+
+  test("GET restaurants/:id 404 status code and 'error: restaurant not found'", async () => {
+    const expected = { error: "restaurant not found" };
+
+    await request(app)
+      .get("/restaurants/618005cae3c8e880c13dc0b9")
+      .expect(404)
+      .expect((res) => {
+        expect(res.body).toEqual(expected);
+      });
+  });
 });
