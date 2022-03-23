@@ -8,10 +8,18 @@ const RestaurantModel = require("./models/RestaurantModel");
 const ReservationModel = require("./models/ReservationModel");
 const validId = require("./utils/validId");
 const { auth } = require("express-oauth2-jwt-bearer");
+
 const checkJwt = auth({
   audience: "https://restaurantRes.com",
   issuerBaseURL: `https://dev-dfkojg63.us.auth0.com/`,
 });
+
+// if (!checkJwt) {
+//   app.use((response) => {
+//     response
+//       .status(401)
+//       .send({ UnauthorizedError: "No authorization token was found" });
+//   });
 
 app.use(cors());
 app.use(express.json());
@@ -52,25 +60,21 @@ app.get("/restaurants", async (request, response, next) => {
   }
 });
 
-app.get("/restaurants/:id", async (request, response, next) => {
+app.get("/restaurants/:id", async (request, response) => {
   const id = request.params.id;
   if (validId(id) === false) {
-    throw new Error("Invalid ID is provided");
-
-    // return response.status(400).send({ message: "Invalid ID is provided" });
+    return response.status(400).send({ error: "invalid id is provided" });
   }
-  try {
-    const restaurant = await RestaurantModel.findById(id);
-    const formatRestaurant = restaurantFormat(restaurant);
 
-    return response.status(200).send(formatRestaurant);
-  } catch (error) {
-    if (!response) {
-      return response.status(404).send({
-        message: "The restaurant trying to be retrieved does not exist",
-      });
-    }
+  const restaurant = await RestaurantModel.findById(id);
+  if (!restaurant) {
+    return response.status(404).send({
+      error: "restaurant not found",
+    });
   }
+  const formatRestaurant = restaurantFormat(restaurant);
+
+  return response.status(200).send(formatRestaurant);
 });
 app.use(errors());
 module.exports = app;
