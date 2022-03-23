@@ -11,7 +11,6 @@ const Restaurant = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Been here");
       const fetchUrl = await fetch(`http://localhost:5001/restaurants/${id}`);
 
       if (fetchUrl.ok === false) {
