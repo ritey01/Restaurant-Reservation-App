@@ -56,13 +56,6 @@ const CreateReservation = ({ restaurantName }) => {
     );
   }
 
-  // .then((response) => response.json())
-  // .then(() => {
-  //   console.log("reservation added");
-  //   setIsPending(false);
-  //   // history.push("/")
-  // });
-
   return (
     <>
       <h1>{`Reserve ${restaurantName}`}</h1>
