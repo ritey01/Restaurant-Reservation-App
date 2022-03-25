@@ -72,12 +72,12 @@ app.get("/restaurants/:id", async (request, response) => {
 
 app.get("/reservations", checkJwt, async (request, response, next) => {
   const { auth } = request;
-  console.log(auth.payload.sub);
+
   try {
     const reservations = await ReservationModel.find({
-      UserId: auth.payload.sub,
+      userId: auth.payload.sub,
     });
-    console.log(reservations);
+
     const formatReservations = reservations.map((reservation) => {
       return reservationFormat(reservation);
     });
