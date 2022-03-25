@@ -14,13 +14,6 @@ const checkJwt = auth({
   issuerBaseURL: `https://dev-dfkojg63.us.auth0.com/`,
 });
 
-// if (!checkJwt) {
-//   app.use((response) => {
-//     response
-//       .status(401)
-//       .send({ UnauthorizedError: "No authorization token was found" });
-//   });
-
 app.use(cors());
 app.use(express.json());
 
@@ -76,5 +69,23 @@ app.get("/restaurants/:id", async (request, response) => {
 
   return response.status(200).send(formatRestaurant);
 });
+
+app.get("/reservations", checkJwt, async (request, response, next) => {
+  const { auth } = request;
+  console.log(auth.payload.sub);
+  try {
+    const reservations = await ReservationModel.find({
+      UserId: auth.payload.sub,
+    });
+    console.log(reservations);
+    const formatReservations = reservations.map((reservation) => {
+      return reservationFormat(reservation);
+    });
+    response.send(formatReservations).status(200);
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use(errors());
 module.exports = app;
