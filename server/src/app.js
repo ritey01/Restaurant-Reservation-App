@@ -87,5 +87,29 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
   }
 });
 
+app.get("/reservations/:id", checkJwt, async (request, response) => {
+  const id = request.params.id;
+
+  if (validId(id) === false) {
+    return response.status(400).send({ error: "invalid id provided" });
+  }
+
+  const reservation = await ReservationModel.findById(id);
+  if (!reservation) {
+    return response.status(404).send({
+      error: "not found",
+    });
+  }
+  if (reservation.userId !== request.auth.payload.sub) {
+    return response.status(403).send({
+      error: "user does not have permission to access this reservation",
+    });
+  }
+
+  const formatReservation = reservationFormat(reservation);
+
+  return response.status(200).send(formatReservation);
+});
+
 app.use(errors());
 module.exports = app;
