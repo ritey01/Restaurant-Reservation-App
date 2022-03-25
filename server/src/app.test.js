@@ -1,8 +1,35 @@
 const app = require("./app");
 const request = require("supertest");
 const mongoose = require("mongoose");
+const { response } = require("./app");
 
 describe("App", () => {
+  test("GET /reservations returns all reservations", async () => {
+    const expected = [
+      {
+        partySize: 4,
+        date: "2023-11-17T06:30:00.000Z",
+        userId: "mock-user-id",
+        restaurantName: "Island Grill",
+      },
+      {
+        partySize: 2,
+        date: "2023-12-03T07:00:00.000Z",
+        userId: "mock-user-id",
+        restaurantName: "Green Curry",
+      },
+    ];
+    let id;
+
+    await request(app)
+      .get("/reservations")
+      .expect(200)
+      .expect((res) => {
+        id = res.body.id;
+        expect(res.body).toEqual(expect.arrayContaining(expected));
+        expect(id).toBeTruthy();
+      });
+  });
   test("POST /reservations creates a new property", async () => {
     const body = {
       partySize: 4,
@@ -79,7 +106,7 @@ describe("App", () => {
         expect(res.body).toEqual(expected);
       });
   });
-  it("Should return 404 status with endpoint /reservation", async () => {
+  it("Should return 404 status with GET endpoint /reservation", async () => {
     await request(app).get("/reservation").expect(404);
   });
 
