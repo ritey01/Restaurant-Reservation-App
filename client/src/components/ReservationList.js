@@ -18,13 +18,13 @@ const ReservationList = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("Im here");
+
       if (response.ok === false) {
         setIsNotFound(true);
         return;
       }
       const reservationData = await response.json();
-      console.log(reservationData);
+
       setReservation(reservationData);
       setIsLoading(false);
     };
@@ -51,7 +51,7 @@ const ReservationList = () => {
             <li>
               <div>
                 <h2 class="reservationName">{reservation.restaurantName}</h2>
-                <p class="reservationDate">{reservation.date}</p>
+                <p class="reservationDate">{formatDate(reservation.date)}</p>
                 <div>
                   <Link to={`/reservations/${reservation.id}`}>
                     {/* {" "} */}
