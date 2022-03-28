@@ -19,7 +19,7 @@ const ReservationList = () => {
         },
       });
 
-      if (response.ok === false) {
+      if (response.status === 404) {
         setIsNotFound(true);
         return;
       }
@@ -34,7 +34,11 @@ const ReservationList = () => {
   if (isNotFound) {
     return (
       <>
-        <p className="error">Sorry! Page not found.</p>
+        <h1 className="notFoundTitle">Upcoming reservations</h1>
+        <p>You don't have any reservations.</p>
+        <Link to={`/`} className="restaurantLink">
+          View the restaurants
+        </Link>
       </>
     );
   }
