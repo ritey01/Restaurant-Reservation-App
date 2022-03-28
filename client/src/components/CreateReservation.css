@@ -1,0 +1,38 @@
+.dateLabel,
+.guestLabel {
+  display: block;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.dateInput,
+.guestInput {
+  display: block;
+  width: 70%;
+  height: 2rem;
+  border: solid #c0c0c0;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+}
+.guestInput {
+  margin-bottom: 2rem;
+}
+
+.dateInput {
+  margin-bottom: 2rem;
+}
+
+.submitbtn {
+  background-color: red;
+  padding: 0.8rem;
+  color: white;
+  border: none;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  width: 15%;
+  margin-bottom: 5rem;
+}
+/* .guestInput,
+:placeholder-shown {
+  color: transparent;
+} */
