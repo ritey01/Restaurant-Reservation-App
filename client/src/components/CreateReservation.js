@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./CreateReservation.css";
 
 const CreateReservation = ({ restaurantName }) => {
-  const [partySize, setPartySize] = useState(0);
+  const [partySize, setPartySize] = useState();
   const [date, setDate] = useState(new Date());
   const [isPending, setIsPending] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -60,17 +60,24 @@ const CreateReservation = ({ restaurantName }) => {
     <>
       <h1>{`Reserve ${restaurantName}`}</h1>
       <form onSubmit={handleSubmit}>
-        <label>Number of guests</label>
-        <input
-          id="partySize"
-          type="text "
-          required
-          value={partySize}
-          onChange={(event) => {
-            setPartySize(event.target.value);
-          }}
-        />
-        <label>Date</label>
+        <div className="partySize">
+          <label className="guestLabel" for="partySize">
+            Number of guests
+          </label>
+          <input
+            id="partySize"
+            type="text"
+            required
+            value={partySize}
+            className="guestInput"
+            onChange={(event) => {
+              setPartySize(event.target.value);
+            }}
+          />
+        </div>
+        <label className="dateLabel" for="date">
+          Date
+        </label>
         <DatePicker
           selected={date}
           onChange={(date) => setDate(date)}
@@ -78,11 +85,14 @@ const CreateReservation = ({ restaurantName }) => {
           dateFormat="Pp"
           id="date"
           required
+          className="dateInput"
           value={date}
         />
 
-        {!isPending && <button>Submit</button>}
-        {isPending && <button>Adding reservation...</button>}
+        {!isPending && <button className="submitbtn">Submit</button>}
+        {isPending && (
+          <button className="submitbtn">Adding reservation...</button>
+        )}
       </form>
     </>
   );
