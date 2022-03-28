@@ -77,16 +77,16 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
     const reservations = await ReservationModel.find({
       userId: auth.payload.sub,
     });
+    if (reservations.length === 0 && checkJwt) {
+      return response
+        .status(404)
+        .send({ error: "You dont have any reservations" });
+    }
 
     const formatReservations = reservations.map((reservation) => {
       return reservationFormat(reservation);
     });
     response.send(formatReservations).status(200);
-    if (reservations.length === 0) {
-      return response
-        .status(404)
-        .send({ error: "You dont have any reservations" });
-    }
   } catch (error) {
     next(error);
   }
