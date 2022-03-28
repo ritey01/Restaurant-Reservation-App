@@ -10,6 +10,7 @@ const Reservation = () => {
   const [reservation, setReservation] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [errorStatus, setErrorStatus] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -20,6 +21,11 @@ const Reservation = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+
+      if (fetchUrl.status === 400 || fetchUrl.status === 404) {
+        setErrorStatus(true);
+        return;
+      }
 
       if (fetchUrl.ok === false) {
         setIsNotFound(true);
@@ -32,6 +38,18 @@ const Reservation = () => {
     fetchData();
   }, [getAccessTokenSilently, id]);
 
+  if (errorStatus) {
+    return (
+      <>
+        <h1 className="noResTitle">Sorry! We can't find that reservation</h1>
+        <div className="resBackBtnError">
+          <Link to={`/reservations`} className="resBackLink">
+            &larr;Back to reservations
+          </Link>
+        </div>
+      </>
+    );
+  }
   if (isNotFound) {
     return (
       <>
@@ -46,13 +64,17 @@ const Reservation = () => {
 
   return (
     <>
-      <h1>Reservation</h1>
       <section>
-        <h2 class="reservationName">{reservation.restaurantName}</h2>
-        <p class="reservationDate">{formatDate(reservation.date)}</p>
-        <div>
-          <Link to={`/reservations`}>
-            {/* {" "} */}
+        <div className="resCard">
+          <h1 class="reservationName">{reservation.restaurantName}</h1>
+          <p class="reservationDate">{formatDate(reservation.date)}</p>
+          <p className="partySizeRes">
+            Party size:{" "}
+            <span className="partySizeNum">{reservation.partySize}</span>
+          </p>
+        </div>
+        <div className="resBackBtn">
+          <Link to={`/reservations`} className="resBackLink">
             &larr;Back to reservations
           </Link>
         </div>
