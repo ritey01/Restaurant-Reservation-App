@@ -77,7 +77,7 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
     const reservations = await ReservationModel.find({
       userId: auth.payload.sub,
     });
-    if (reservations.length === 0 && checkJwt) {
+    if (reservations.length === 0 && checkJwt === true) {
       return response
         .status(404)
         .send({ error: "You dont have any reservations" });
