@@ -25,6 +25,16 @@
   color: red;
 }
 
+.notFoundTitle {
+  max-width: 20rem;
+
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.restaurantLink {
+  color: red;
+}
 @media only screen and (min-width: 30rem) {
   .reservationList {
     display: grid;
