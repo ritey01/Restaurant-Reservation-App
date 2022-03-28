@@ -1,22 +1,22 @@
-.reservationTitle {
+.reservationListTitle {
   text-align: center;
   margin: auto;
   max-width: 20rem;
 }
 
-.reservationCard {
+.reservationListCard {
   list-style: none;
   padding: 1rem 0 2.5rem 0;
   margin: 0;
   border-bottom: dashed #c0c0c0;
 }
 
-.reservationName {
+.reservationListName {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-.reservationDate {
+.reservationListDate {
   color: grey;
   margin: 0.5rem 0;
 }
@@ -36,16 +36,16 @@
   color: red;
 }
 @media only screen and (min-width: 30rem) {
-  .reservationList {
+  .reservationListContent {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
   }
-  .reservationName {
+  .reservationListName {
     grid-column: 1/2;
     margin: 0;
     text-align: left;
   }
-  .reservationDate {
+  .reservationListDate {
     grid-column: 2/3;
     margin: 0;
     text-align: center;
@@ -55,10 +55,10 @@
     margin: 0;
     text-align: right;
   }
-  .reservationCard {
+  .reservationListCard {
     padding: 2rem 0;
   }
-  .reservationTitle {
+  .reservationListTitle {
     width: auto;
     white-space: nowrap;
   }
