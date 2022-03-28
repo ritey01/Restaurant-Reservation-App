@@ -1,0 +1,48 @@
+.reservationName {
+  font-size: 2rem;
+  text-align: start;
+  margin-bottom: 1rem;
+}
+.partySizeRes {
+  font-weight: bold;
+}
+
+.partySizeNum {
+  font-weight: lighter;
+}
+.resCard {
+  padding-bottom: 2rem;
+  border-bottom: dashed #c0c0c0;
+}
+
+.resBackBtn {
+  margin-top: 3rem;
+  padding: 0.5rem;
+  background-color: #c0c0c0;
+  width: 35%;
+  min-width: 12rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
+.resBackLink {
+  text-decoration: None;
+  color: black;
+}
+
+.noResTitle {
+  color: red;
+  font-size: 1rem;
+  text-align: start;
+  margin-bottom: 1rem;
+}
+.resBackBtnError {
+  padding: 0.5rem;
+  background-color: #c0c0c0;
+  width: 35%;
+  min-width: 12rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
