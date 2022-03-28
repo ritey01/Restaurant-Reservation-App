@@ -8,6 +8,7 @@ const ReservationList = () => {
   const [reservations, setReservation] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [errorStatus, setErrorStatus] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -23,6 +24,11 @@ const ReservationList = () => {
         setIsNotFound(true);
         return;
       }
+      if (response.ok === false) {
+        setErrorStatus(true);
+        return;
+      }
+
       const reservationData = await response.json();
 
       setReservation(reservationData);
@@ -42,21 +48,35 @@ const ReservationList = () => {
       </>
     );
   }
+  if (errorStatus) {
+    return (
+      <>
+        <h1>Oh no something went wrong! Please try again</h1>
+        <Link to={`/`} className="restaurantLink">
+          View the restaurants
+        </Link>
+      </>
+    );
+  }
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
   return (
     <>
-      <h1 className="reservationTitle">Upcoming reservations</h1>
+      <h1 className="reservationListTitle">Upcoming reservations</h1>
       {reservations.map((reservation) => {
         return (
-          <ul key={reservation.id} className="reservationCard">
+          <ul key={reservation.id} className="reservationListCard">
             <li>
-              <div className="reservationList">
-                <h2 class="reservationName">{reservation.restaurantName}</h2>
+              <div className="reservationListContent">
+                <h2 class="reservationListName">
+                  {reservation.restaurantName}
+                </h2>
 
-                <p class="reservationDate">{formatDate(reservation.date)}</p>
+                <p class="reservationListDate">
+                  {formatDate(reservation.date)}
+                </p>
 
                 <Link
                   to={`/reservations/${reservation.id}`}
