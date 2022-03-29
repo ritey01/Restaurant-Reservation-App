@@ -1,10 +1,9 @@
 const app = require("./app");
 const request = require("supertest");
 const mongoose = require("mongoose");
-// const { response } = require("./app");
 
 describe("App", () => {
-  test("GET /reservations returns all reservations", async () => {
+  test("GET /reservations returns all reservations for mock-user-id", async () => {
     const expected = [
       {
         id: "507f1f77bcf86cd799439011",
@@ -30,8 +29,23 @@ describe("App", () => {
       });
   });
   test("GET /reservation returns 404 status", async () => {
-    await request(app).get("/reservation").expect(404);
+    const expected = {};
+    await request(app)
+      .get("/reservation")
+      .expect(404)
+      .expect((response) => {
+        const resBody = response.body;
+        expect(resBody).toEqual(expected);
+      });
   });
+  // test("GET /reservation return 403 status when user not authorised", async () => {
+  //   auth.payload.sub = "other-user";
+
+  //   await request(app)
+  //     .get("/reservations")
+  //     .set(`Authorization`, `Bearer ${auth.payload.sub}`)
+  //     .expect(403);
+  // });
   test("POST /reservations creates a new property", async () => {
     const body = {
       partySize: 4,
