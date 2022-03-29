@@ -26,8 +26,12 @@ describe("App", () => {
       .expect(200)
       .expect((res) => {
         expect(res.body).toEqual(expected);
+        expect.objectContaining({
+          userId: "mock-user-id",
+        });
       });
   });
+
   test("GET /reservation returns 404 status", async () => {
     const expected = {};
     await request(app)
@@ -38,14 +42,7 @@ describe("App", () => {
         expect(resBody).toEqual(expected);
       });
   });
-  // test("GET /reservation return 403 status when user not authorised", async () => {
-  //   auth.payload.sub = "other-user";
 
-  //   await request(app)
-  //     .get("/reservations")
-  //     .set(`Authorization`, `Bearer ${auth.payload.sub}`)
-  //     .expect(403);
-  // });
   test("POST /reservations creates a new property", async () => {
     const body = {
       partySize: 4,
