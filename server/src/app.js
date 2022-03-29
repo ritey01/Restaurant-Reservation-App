@@ -77,7 +77,8 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
     const reservations = await ReservationModel.find({
       userId: auth.payload.sub,
     });
-    if (reservations === null) {
+    console.log(reservations);
+    if (reservations.length === 0) {
       return response.status(404).send({
         error: "not found",
       });
@@ -97,6 +98,7 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
       }
       return reservationFormat(reservation);
     });
+    console.log(formatReservations);
     response.send(formatReservations).status(200);
   } catch (error) {
     next(error);

@@ -19,8 +19,8 @@ const ReservationList = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-
-      if (response.status === 404) {
+      console.log(response);
+      if (response.status === 404 || response === []) {
         setIsNotFound(true);
         return;
       }
