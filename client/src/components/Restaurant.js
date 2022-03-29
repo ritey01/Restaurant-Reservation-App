@@ -38,14 +38,14 @@ const Restaurant = () => {
 
   return (
     <>
-      <section class="restaurantWrapper">
+      <section className="restaurantWrapper">
         <img
           src={restaurant.image}
           alt={restaurant.name}
-          class="restaurantImg"
+          className="restaurantImg"
         />
-        <div class="gridDisplay">
-          <h1 class="restaurantName">{restaurant.name}</h1>
+        <div className="gridDisplay">
+          <h1 className="restaurantName">{restaurant.name}</h1>
           <p>{restaurant.description}</p>
         </div>
       </section>
