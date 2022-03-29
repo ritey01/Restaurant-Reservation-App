@@ -55,7 +55,6 @@ const RestaurantList = () => {
                     to={`/restaurants/${restaurant.id}`}
                     className="reserveButton"
                   >
-                    {" "}
                     Reserve now &rarr;
                   </Link>
                 </div>
