@@ -77,6 +77,9 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
     const reservations = await ReservationModel.find({
       userId: auth.payload.sub,
     });
+    if (request.auth.payload.sub !== reservations.userId) {
+      return response.status(403);
+    }
     if (reservations.length === 0 && request.auth.payload.sub) {
       return response
         .status(404)
