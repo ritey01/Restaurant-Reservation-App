@@ -14,11 +14,14 @@ const ReservationList = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       const accessToken = await getAccessTokenSilently();
-      const response = await fetch("http://localhost:5001/reservations", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/reservations`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       if (response.status === 404) {
         setIsNotFound(true);
