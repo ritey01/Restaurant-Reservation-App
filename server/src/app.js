@@ -77,16 +77,24 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
     const reservations = await ReservationModel.find({
       userId: auth.payload.sub,
     });
-    if (request.auth.payload.sub !== reservations.userId) {
-      return response.status(403);
-    }
-    if (reservations.length === 0 && request.auth.payload.sub) {
-      return response
-        .status(404)
-        .send({ error: "You dont have any reservations" });
+    if (reservations === null) {
+      return response.status(404).send({
+        error: "not found",
+      });
     }
 
+    // if (reservations.length === 0 && request.auth.payload.sub) {
+    //   return response
+    //     .status(404)
+    //     .send({ error: "You dont have any reservations" });
+    // }
+
     const formatReservations = reservations.map((reservation) => {
+      if (reservation.userId !== auth.payload.sub) {
+        return response.status(403).send({
+          error: "user does not have permission to access this reservation",
+        });
+      }
       return reservationFormat(reservation);
     });
     response.send(formatReservations).status(200);
