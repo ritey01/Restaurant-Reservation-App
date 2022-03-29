@@ -68,7 +68,34 @@ describe("App", () => {
     const expectedStatus = 400;
     const body = {};
 
-    await request(app).post("/reservations").send(body).expect(expectedStatus);
+    await request(app)
+      .post("/reservations")
+      .send(body)
+      .expect(expectedStatus)
+      .expect(() => {
+        expect.objectContaining({
+          message: "Validation failed",
+        });
+      });
+  });
+
+  test("POST /reservations returns 400 status when party size 0", async () => {
+    const expectedStatus = 400;
+    const body = {
+      partySize: 0,
+      date: "2023-11-17T06:30:00.000Z",
+      restaurantName: "Island Grill",
+    };
+
+    await request(app)
+      .post("/reservations")
+      .send(body)
+      .expect(expectedStatus)
+      .expect(() => {
+        expect.objectContaining({
+          message: "Validation failed",
+        });
+      });
   });
 
   test("POST /reservation returns a 404 status", async () => {
