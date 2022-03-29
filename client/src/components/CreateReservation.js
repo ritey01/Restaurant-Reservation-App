@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CreateReservation.css";
 
 const CreateReservation = ({ restaurantName }) => {
-  const [partySize, setPartySize] = useState();
+  const [partySize, setPartySize] = useState("");
   const [date, setDate] = useState(new Date());
   const [isPending, setIsPending] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -42,7 +42,7 @@ const CreateReservation = ({ restaurantName }) => {
       setErrorStatus(response.status);
     } else {
       setIsPending(false);
-      console.log("Saved to database");
+
       navigate("/reservations");
     }
   };
@@ -58,10 +58,10 @@ const CreateReservation = ({ restaurantName }) => {
 
   return (
     <>
-      <h1>{`Reserve ${restaurantName}`}</h1>
+      <h1 className="formTitle">{`Reserve ${restaurantName}`}</h1>
       <form onSubmit={handleSubmit}>
         <div className="partySize">
-          <label className="guestLabel" for="partySize">
+          <label className="guestLabel" htmlFor="partySize">
             Number of guests
           </label>
           <input
@@ -75,9 +75,10 @@ const CreateReservation = ({ restaurantName }) => {
             }}
           />
         </div>
-        <label className="dateLabel" for="date">
+        <label className="dateLabel" htmlFor="date">
           Date
         </label>
+
         <DatePicker
           selected={date}
           onChange={(date) => setDate(date)}
@@ -87,6 +88,7 @@ const CreateReservation = ({ restaurantName }) => {
           required
           className="dateInput"
           value={date}
+          popperClassName="popperWindow"
         />
 
         {!isPending && <button className="submitbtn">Submit</button>}
