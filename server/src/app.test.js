@@ -53,14 +53,14 @@ describe("App", () => {
       });
   });
 
-  test("POST /reservations returns a 400 when an invalid request body is provided", async () => {
+  test("POST /reservations returns 400 status when an invalid request body is provided", async () => {
     const expectedStatus = 400;
     const body = {};
 
     await request(app).post("/reservations").send(body).expect(expectedStatus);
   });
 
-  test("POST /reservation returns a 404", async () => {
+  test("POST /reservation returns a 404 status", async () => {
     const body = {
       partySize: 4,
       date: "2023-11-17T06:30:00.000Z",
@@ -153,7 +153,7 @@ describe("App", () => {
       });
   });
 
-  test("GET  /reservations/:id returns a single reservation", async () => {
+  test("GET  reservations/:id returns a single reservation", async () => {
     const expected = {
       id: "507f1f77bcf86cd799439011",
       partySize: 4,
