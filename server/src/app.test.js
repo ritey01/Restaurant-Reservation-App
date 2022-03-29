@@ -4,32 +4,34 @@ const mongoose = require("mongoose");
 // const { response } = require("./app");
 
 describe("App", () => {
-  // test("GET /reservations returns all reservations", async () => {
-  //   const expected = [
-  //     {
-  //       partySize: 4,
-  //       date: "2023-11-17T06:30:00.000Z",
-  //       userId: "mock-user-id",
-  //       restaurantName: "Island Grill",
-  //     },
-  //     {
-  //       partySize: 2,
-  //       date: "2023-12-03T07:00:00.000Z",
-  //       userId: "mock-user-id",
-  //       restaurantName: "Green Curry",
-  //     },
-  //   ];
-  //   let id;
+  test("GET /reservations returns all reservations", async () => {
+    const expected = [
+      {
+        id: "507f1f77bcf86cd799439011",
+        partySize: 4,
+        date: "2023-11-17T06:30:00.000Z",
+        userId: "mock-user-id",
+        restaurantName: "Island Grill",
+      },
+      {
+        id: "614abf0a93e8e80ace792ac6",
+        partySize: 2,
+        date: "2023-12-03T07:00:00.000Z",
+        userId: "mock-user-id",
+        restaurantName: "Green Curry",
+      },
+    ];
 
-  //   await request(app)
-  //     .get("/reservations")
-  //     .expect(200)
-  //     .expect((res) => {
-  //       id = res.body.id;
-  //       expect(res.body).toEqual(expect.arrayContaining(expected));
-  //       expect(id).toBeTruthy();
-  //     });
-  // });
+    await request(app)
+      .get("/reservations")
+      .expect(200)
+      .expect((res) => {
+        expect(res.body).toEqual(expected);
+      });
+  });
+  test("GET /reservation returns 404 status", async () => {
+    await request(app).get("/reservation").expect(404);
+  });
   test("POST /reservations creates a new property", async () => {
     const body = {
       partySize: 4,
@@ -49,17 +51,6 @@ describe("App", () => {
         const isValidId = mongoose.Types.ObjectId.isValid(res.body.id);
         expect(isValidId).toEqual(true);
       });
-
-    // await request(app)
-    //   .get(`/reservations/${id}`)
-    //   .expect(200)
-    //   .expect((res) => {
-    //     const expected = {
-    //       id,
-    //       ...body,
-    //     };
-    //     expect(res.body).toEqual(expected);
-    //   });
   });
 
   test("POST /reservations returns a 400 when an invalid request body is provided", async () => {
@@ -69,12 +60,22 @@ describe("App", () => {
     await request(app).post("/reservations").send(body).expect(expectedStatus);
   });
 
-  // test("POST /reservations returns a 401 when a user is not authenticated", async () => {
-  //   const expectedStatus = 401;
-  //   const body = {};
+  test("POST /reservation returns a 404", async () => {
+    const body = {
+      partySize: 4,
+      date: "2023-11-17T06:30:00.000Z",
+      restaurantName: "Island Grill",
+    };
 
-  //   await request(app).post("/reservations").send(body).expect(expectedStatus);
-  // });
+    await request(app)
+      .post("/reservation")
+      .send(body)
+      .set("Accept", "application/json")
+      .expect(404)
+      .expect((res) => {
+        expect(res.body).toEqual({});
+      });
+  });
   test("GET /restaurants returns all restaurants", async () => {
     const expected = [
       {
@@ -106,11 +107,16 @@ describe("App", () => {
         expect(res.body).toEqual(expected);
       });
   });
-  it("Should return 404 status with GET endpoint /reservation", async () => {
-    await request(app).get("/reservation").expect(404);
+  test("GET /restaurant returns 404 status", async () => {
+    await request(app)
+      .get("/restaurant")
+      .expect(404)
+      .expect((res) => {
+        expect(res.body).toEqual({});
+      });
   });
 
-  it("Should return a single restaurant with GET /restaurant:id", async () => {
+  test("GET /restaurant:id returns a single restaurant with correct id", async () => {
     const expected = {
       id: "616005cae3c8e880c13dc0b9",
       name: "Curry Place",
