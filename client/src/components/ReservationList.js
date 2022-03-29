@@ -19,8 +19,8 @@ const ReservationList = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(response);
-      if (response.status === 404 || response === []) {
+
+      if (response.status === 404) {
         setIsNotFound(true);
         return;
       }
@@ -30,6 +30,10 @@ const ReservationList = () => {
       }
 
       const reservationData = await response.json();
+      if (reservationData.length === 0) {
+        setIsNotFound(true);
+        return;
+      }
 
       setReservation(reservationData);
       setIsLoading(false);

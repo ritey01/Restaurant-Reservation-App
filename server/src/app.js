@@ -84,12 +84,6 @@ app.get("/reservations", checkJwt, async (request, response, next) => {
       });
     }
 
-    // if (reservations.length === 0 && request.auth.payload.sub) {
-    //   return response
-    //     .status(404)
-    //     .send({ error: "You dont have any reservations" });
-    // }
-
     const formatReservations = reservations.map((reservation) => {
       if (reservation.userId !== auth.payload.sub) {
         return response.status(403).send({
