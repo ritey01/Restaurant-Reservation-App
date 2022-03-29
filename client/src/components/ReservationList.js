@@ -69,10 +69,10 @@ const ReservationList = () => {
   return (
     <>
       <h1 className="reservationListTitle">Upcoming reservations</h1>
-      {reservations.map((reservation) => {
-        return (
-          <ul key={reservation.id} className="reservationListCard">
-            <li>
+      <ul className="reservationListCard">
+        {reservations.map((reservation) => {
+          return (
+            <li key={reservation.id}>
               <div className="reservationListContent">
                 <h2 className="reservationListName">
                   {reservation.restaurantName}
@@ -86,14 +86,13 @@ const ReservationList = () => {
                   to={`/reservations/${reservation.id}`}
                   className="detailsLink"
                 >
-                  {/* {" "} */}
                   View details &rarr;
                 </Link>
               </div>
             </li>
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
     </>
   );
 };
