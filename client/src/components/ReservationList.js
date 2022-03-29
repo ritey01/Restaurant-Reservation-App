@@ -70,11 +70,11 @@ const ReservationList = () => {
           <ul key={reservation.id} className="reservationListCard">
             <li>
               <div className="reservationListContent">
-                <h2 class="reservationListName">
+                <h2 className="reservationListName">
                   {reservation.restaurantName}
                 </h2>
 
-                <p class="reservationListDate">
+                <p className="reservationListDate">
                   {formatDate(reservation.date)}
                 </p>
 
