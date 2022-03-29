@@ -22,7 +22,11 @@ const Reservation = () => {
         },
       });
 
-      if (fetchUrl.status === 400 || fetchUrl.status === 404) {
+      if (
+        fetchUrl.status === 400 ||
+        fetchUrl.status === 404 ||
+        fetchUrl.status === 403
+      ) {
         setErrorStatus(true);
         return;
       }
@@ -66,8 +70,8 @@ const Reservation = () => {
     <>
       <section>
         <div className="resCard">
-          <h1 class="reservationName">{reservation.restaurantName}</h1>
-          <p class="reservationDate">{formatDate(reservation.date)}</p>
+          <h1 className="reservationName">{reservation.restaurantName}</h1>
+          <p className="reservationDate">{formatDate(reservation.date)}</p>
           <p className="partySizeRes">
             Party size:{" "}
             <span className="partySizeNum">{reservation.partySize}</span>
