@@ -91,7 +91,6 @@ const CreateReservation = ({ restaurantName }) => {
           required
           className="dateInput"
           value={date}
-          popperClassName="popperWindow"
         />
 
         {!isPending && <button className="submitbtn">Submit</button>}
