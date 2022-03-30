@@ -4,7 +4,7 @@
   max-width: 20rem;
 }
 
-.reservationListCard {
+.reservationListContent {
   list-style: none;
   padding: 1rem 0 2.5rem 0;
   margin: 0;
@@ -39,6 +39,7 @@
   .reservationListContent {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
+    padding: 2rem 0;
   }
   .reservationListName {
     grid-column: 1/2;
@@ -55,9 +56,7 @@
     margin: 0;
     text-align: right;
   }
-  .reservationListCard {
-    padding: 2rem 0;
-  }
+
   .reservationListTitle {
     width: auto;
     white-space: nowrap;
