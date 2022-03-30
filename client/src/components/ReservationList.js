@@ -19,6 +19,7 @@ const ReservationList = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
           },
         }
       );
