@@ -3,7 +3,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 
 describe("App", () => {
-  test("GET /reservations returns all reservations for mock-user-id", async () => {
+  test("GET /reservations returns all reservations for userId : mock-user-id", async () => {
     const expected = [
       {
         id: "507f1f77bcf86cd799439011",
@@ -32,7 +32,7 @@ describe("App", () => {
       });
   });
 
-  test("GET /reservation returns 404 status", async () => {
+  test("GET /reservation returns 404 status with an empty response body", async () => {
     const expected = {};
     await request(app)
       .get("/reservation")
@@ -43,7 +43,7 @@ describe("App", () => {
       });
   });
 
-  test("POST /reservations creates a new property", async () => {
+  test("POST /reservations creates a new property with a valid ID", async () => {
     const body = {
       partySize: 4,
       date: "2023-11-17T06:30:00.000Z",
@@ -98,7 +98,7 @@ describe("App", () => {
       });
   });
 
-  test("POST /reservation returns a 404 status", async () => {
+  test("POST /reservation returns a 404 status and an empty response body", async () => {
     const body = {
       partySize: 4,
       date: "2023-11-17T06:30:00.000Z",
@@ -145,7 +145,7 @@ describe("App", () => {
         expect(res.body).toEqual(expected);
       });
   });
-  test("GET /restaurant returns 404 status", async () => {
+  test("GET /restaurant returns 404 status and an empty response body ", async () => {
     await request(app)
       .get("/restaurant")
       .expect(404)
