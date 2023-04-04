@@ -1,4 +1,0 @@
-Add your deployed website domain's / URL's below
-
-React application URL / domain:https://superb-sherbet-4aa68f.netlify.app
-API URL / domain:https://reservationizer-srwright.herokuapp.com
