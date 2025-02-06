@@ -9,10 +9,6 @@ https://www.loom.com/share/3b8785241f664dfc9a832169d2ab4453
 
 You are working for a new startup, Reservationizr. It allows customers to make reservations at any of their local restaurants from one place.
 
-The previous Software Engineer started building the application but was urgently re-assigned to a different part of the business. You need to complete the remaining user stories for the web application, following the documentation below.
-
-Your Tech Lead can support you if you need help understanding the requirements or are blocked with something in particular.
-
 ---
 
 # Getting started
@@ -57,19 +53,6 @@ To view the documentation for the API specification:
 4. Open the link displayed in your browser (it's automatically copied to your clipboard)
 
    ![api docs](docs/api-docs.png)
-
-## Load the API Specification in Insomnia
-
-You can automatically load all the available endpoints in Insomnia.
-
-Watch the [video tutorial](https://www.loom.com/share/dfaf8b47c6924f5ba04ce84dd1bdea1b), or follow the instructions below:
-
-1. Go to the Insomnia Dashboard
-2. Click the purple `Create` button
-3. Select `File`.
-4. Navigate into this exercise folder, and choose `server/e2e/api-spec.yml`.
-5. Import as a `Request Collection`.
-6. You can then open the Reservationizr API 1.0 Collection. Insomnia will load the endpoints for you.
 
 ---
 
